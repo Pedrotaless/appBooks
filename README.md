@@ -1,50 +1,104 @@
-# Welcome to your Expo app 👋
+# Sistema de Gerenciamento de Biblioteca
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Sobre o Projeto
 
-## Get started
+Este projeto consiste no desenvolvimento de um aplicativo mobile para gerenciamento de biblioteca, criado com o objetivo de aplicar conceitos básicos de desenvolvimento mobile utilizando o framework Expo.
 
-1. Install dependencies
+A aplicação permite gerenciar livros, incluindo visualização, cadastro e controle de disponibilidade, simulando um sistema simples de biblioteca.
 
-   ```bash
-   npm install
-   ```
+Este documento tem como finalidade apresentar a estrutura, funcionamento e instruções de execução do projeto.
 
-2. Start the app
+## Observações
 
-   ```bash
-   npx expo start
-   ```
+Este projeto foi desenvolvido para fins acadêmicos, com foco no aprendizado de conceitos iniciais de desenvolvimento mobile, estruturação de aplicações e organização de código.
 
-In the output, you'll find options to open the app in a
+---
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Tecnologias Utilizadas
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- React Native
+- Expo
+- JavaScript
+- Node.js
 
-## Get a fresh project
+---
 
-When you're ready, run:
+## 1. Criação do Projeto
+
+O projeto foi desenvolvido utilizando o framework Expo, que facilita a criação de aplicações mobile com React Native, permitindo execução rápida em dispositivos físicos e emuladores.
+
+Para iniciar o projeto, foi utilizado os seguinte comandos:
 
 ```bash
-npm run reset-project
-```
+npx create-expo-app appBooks
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Direcionando diretório:
 
-## Learn more
+```bash cd appBooks 
 
-To learn more about developing your project with Expo, look at the following resources:
+//Este comando abre o ambiente de desenvolvimento, permitindo executar o aplicativo em emuladores ou no dispositivo físico através do aplicativo Expo Go.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Instalação das dependências:
 
-## Join the community
+```bash npm install
 
-Join our community of developers creating universal apps.
+## Como Executar o Projeto
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Siga os passos abaixo para executar a aplicação localmente:
+
+```npx expo start
+
+## Estrutura do Projeto
+
+O projeto está organizado de forma modular, separando componentes, telas e funcionalidades específicas para facilitar a manutenção e escalabilidade.
+
+### Nesta pasta se encontra os principais componentes da aplicação:
+
+- `/app`
+
+### src/components
+Contém componentes reutilizáveis da aplicação.
+
+- `BookItem.js`: Responsável por exibir as informações de um livro na lista.
+
+### src/screens
+Contém as telas principais da aplicação.
+
+- `HomeScreen.js`: Tela inicial com listagem de livros
+- `DetailsScreen.js`: Tela de detalhes do livro
+- `FormScreen.js`: Tela para cadastro ou edição de livros
+
+### src/storage
+Responsável pela manipulação de dados (armazenamento local ou futura integração com banco de dados).
+
+---
+
+Outros arquivos importantes:
+
+- `App.js`: Arquivo principal da aplicação
+- `package.json`: Gerenciamento de dependências
+
+## 📖 Funcionalidade: Listagem de Livros
+
+A funcionalidade de listagem de livros é responsável por exibir os itens cadastrados na aplicação, permitindo ao usuário visualizar informações básicas como título, autor e disponibilidade.
+
+### Estrutura dos Dados
+
+Os livros são armazenados em um estado local utilizando o hook `useState`, contendo um array de objetos com as seguintes propriedades:
+
+- `id`: Identificador único do livro
+- `titulo`: Nome do livro
+- `autor`: Autor da obra
+- `disponivel`: Indica se o livro está disponível para empréstimo
+
+Exemplo de estrutura:
+
+```javascript
+{
+  id: "1",
+  titulo: "O Senhor dos Anéis",
+  autor: "J.R.R. Tolkien",
+  disponivel: true
+}
+
+
