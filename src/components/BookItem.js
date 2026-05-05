@@ -5,7 +5,7 @@ function BookItem({ livro, onPress, onEdit, onDelete }) {
   return (
     <View style={{
       flexDirection: "row",
-      backgroundColor: "#aad3ee",
+      backgroundColor: "#ccc",
       padding: 10,
       marginBottom: 10,
       marginTop: 10,
@@ -25,7 +25,7 @@ function BookItem({ livro, onPress, onEdit, onDelete }) {
 
         <TouchableOpacity
           style={{
-            backgroundColor: "#3498db",
+            backgroundColor: "#175980",
             padding: 8,
             borderRadius: 10,
             marginTop: 6,
@@ -34,10 +34,15 @@ function BookItem({ livro, onPress, onEdit, onDelete }) {
 
           onPress={onPress}
         >
-          <Text style={{ color: "#092931", textAlign: "row" }}>
+          <Text
+            style={{
+              color: "#ccc",
+              textAlign: "row",
+              fontweight: "bold"
+            }}>
             Ver detalhes
           </Text>
-          </TouchableOpacity>
+        </TouchableOpacity>
       </View>
 
     </View >

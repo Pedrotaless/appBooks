@@ -8,9 +8,9 @@ function HomeScreen({ navigation, route }) {
 
   //Array de livros
   const [livros, setLivros] = useState([
-    { id: "1", titulo: "O Senhor dos Anéis", autor: "J.R.R. Tolkien", disponivel: true, capa: "https://covers.openlibrary.org/b/id/8231856-L.jpg" },
-    { id: "2", titulo: "Harry Potter e a Pedra Filosofal", autor: "J.K. Rowling", disponivel: false, capa: "https://covers.openlibrary.org/b/id/8231856-L.jpg" },
-    { id: "3", titulo: "O Hobbit", autor: "J.R.R. Tolkien", disponivel: true, capa: "https://covers.openlibrary.org/b/id/8231856-L.jpg" }
+    { id: "1", titulo: "O Senhor dos Anéis", autor: "J.R.R. Tolkien", ano: "2001", anodisponivel: true, capa: "https://covers.openlibrary.org/b/id/8231856-L.jpg" },
+    { id: "2", titulo: "Harry Potter e a Pedra Filosofal", autor: "J.K. Rowling", ano: "2000", disponivel: false, capa: "https://covers.openlibrary.org/b/id/8231856-L.jpg" },
+    { id: "3", titulo: "O Hobbit", autor: "J.R.R. Tolkien", ano: "2005", disponivel: true, capa: "https://covers.openlibrary.org/b/id/8231856-L.jpg" }
   ]);
 
   const proximoId = useRef(4);
@@ -37,14 +37,14 @@ function HomeScreen({ navigation, route }) {
   }
 
   return (
-    <View style={{ padding: 15 }} >
+    <View style={{ padding: 8 }} >
 
       <Text style={{
         color: "#175980",
-        fontSize: 22,
-        textAling: "center",
+        fontSize: 28,
         fontWeight: "bold",
-        marginBottom: 10
+        marginBottom: 10,
+        textAlign: "center"
       }}>
 
         Lista de Livros
@@ -52,12 +52,13 @@ function HomeScreen({ navigation, route }) {
 
       <TouchableOpacity
         style={{
-          backgroundColor: "#2ecc71",
-          paddingVertical: 10,
-          paddingHorizontal: 12,
+          backgroundColor: "#175980",
+          paddingVertical: 15,
+          paddingHorizontal: 56,
           borderRadius: 6,
           marginTop: 8,
-          width: 120
+          marginBottom: 10,
+          alignSelf: "center"
         }}
         onPress={() => navigation.navigate("Form", {
           adicionarLivro
@@ -65,8 +66,9 @@ function HomeScreen({ navigation, route }) {
       >
         <Text style={{
           color: "#fff",
-          textAling: "center",
-          fontWeight: "bold"
+          textAlign: "center",
+          fontWeight: "bold",
+          fontSize: 16
          }}>
           Adicionar Livro
   
