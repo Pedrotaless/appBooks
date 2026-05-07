@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, Button, Image, TouchableOpacity } from "react-native";
+import { Text, View, Image, TouchableOpacity } from "react-native";
 
 function BookItem({ livro, onPress, onEdit, onDelete }) {
   return (
@@ -25,11 +25,11 @@ function BookItem({ livro, onPress, onEdit, onDelete }) {
 
         <TouchableOpacity
           style={{
-            backgroundColor: "#175980",
-            padding: 8,
+            backgroundColor: "#301c41",
+            padding: 5,
             borderRadius: 10,
-            marginTop: 6,
-            width: 120
+            marginTop: 50,
+            width: 105
           }}
 
           onPress={onPress}
@@ -37,7 +37,7 @@ function BookItem({ livro, onPress, onEdit, onDelete }) {
           <Text
             style={{
               color: "#ccc",
-              textAlign: "row",
+              textAlign: "center",
               fontweight: "bold"
             }}>
             Ver detalhes

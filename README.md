@@ -1,105 +1,141 @@
-# Sistema de Gerenciamento de Biblioteca
+# appBooks
+
+Aplicativo mobile para gerenciamento simples de livros, desenvolvido com React Native e Expo. O projeto permite listar, cadastrar, editar, remover e visualizar detalhes de livros, com persistencia local usando SQLite.
 
 ## Sobre o Projeto
 
-Este projeto consiste no desenvolvimento de um aplicativo mobile para gerenciamento de biblioteca, criado com o objetivo de aplicar conceitos básicos de desenvolvimento mobile utilizando o framework Expo.
+O appBooks foi criado com fins academicos para praticar conceitos iniciais de desenvolvimento mobile, navegacao entre telas, componentes reutilizaveis, estados no React e armazenamento local.
 
-A aplicação permite gerenciar livros, incluindo visualização, cadastro e controle de disponibilidade, simulando um sistema simples de biblioteca.
+A aplicacao simula um pequeno sistema de biblioteca. Cada livro possui titulo, autor, ano, URL da capa e informacao de disponibilidade.
 
-Este documento tem como finalidade apresentar a estrutura, funcionamento e instruções de execução do projeto.
+## Funcionalidades
 
-## Observações
-
-Este projeto foi desenvolvido para fins acadêmicos, com foco no aprendizado de conceitos iniciais de desenvolvimento mobile, estruturação de aplicações e organização de código.
-
----
+- Listagem de livros cadastrados
+- Visualizacao dos detalhes de um livro
+- Cadastro de novos livros
+- Edicao de livros existentes
+- Remocao de livros
+- Controle de disponibilidade
+- Persistencia local dos dados com SQLite
 
 ## Tecnologias Utilizadas
 
 - React Native
 - Expo
 - JavaScript
+- React Navigation
+- Expo SQLite
 - Node.js
 
----
+## Como Executar
 
-## 1. Criação do Projeto
+Antes de iniciar, tenha o Node.js instalado na maquina.
 
-O projeto foi desenvolvido utilizando o framework Expo, que facilita a criação de aplicações mobile com React Native, permitindo execução rápida em dispositivos físicos e emuladores.
-
-Para iniciar o projeto, foi utilizado os seguinte comandos:
+1. Instale as dependencias:
 
 ```bash
-npx create-expo-app appBooks
+npm install
+```
 
-Direcionando diretório:
+2. Inicie o projeto:
 
-```bash cd appBooks 
+```bash
+npm start
+```
 
-//Este comando abre o ambiente de desenvolvimento, permitindo executar o aplicativo em emuladores ou no dispositivo físico através do aplicativo Expo Go.
+ou:
 
-Instalação das dependências:
+```bash
+npx expo start
+```
 
-```bash npm install
+3. Abra o app em um emulador Android/iOS ou no dispositivo fisico usando o Expo Go.
 
-## Como Executar o Projeto
+## Scripts Disponiveis
 
-Siga os passos abaixo para executar a aplicação localmente:
+```bash
+npm start
+```
 
-```npx expo start
+Inicia o servidor de desenvolvimento do Expo.
+
+```bash
+npm run android
+```
+
+Inicia o projeto no Android.
+
+```bash
+npm run ios
+```
+
+Inicia o projeto no iOS.
+
+```bash
+npm run web
+```
+
+Inicia o projeto no navegador.
+
+```bash
+npm run lint
+```
+
+Executa a verificacao de lint do projeto.
 
 ## Estrutura do Projeto
 
-O projeto está organizado de forma modular, separando componentes, telas e funcionalidades específicas para facilitar a manutenção e escalabilidade.
+```text
+appBooks/
+|-- App.js
+|-- index.js
+|-- package.json
+|-- app/
+|-- assets/
+`-- src/
+    |-- components/
+    |   `-- BookItem.js
+    |-- screens/
+    |   |-- HomeScreen.js
+    |   |-- DetailsScreen.js
+    |   `-- FormSreens.js
+    `-- storage/
+        `-- database.js
+```
 
-### Nesta pasta se encontra os principais componentes da aplicação:
+## Principais Arquivos
 
-- `/app`
+- `index.js`: registra o componente principal do app no Expo.
+- `App.js`: configura a navegacao entre as telas.
+- `src/screens/HomeScreen.js`: tela inicial com a listagem dos livros.
+- `src/screens/DetailsScreen.js`: tela de detalhes do livro selecionado.
+- `src/screens/FormSreens.js`: tela usada para adicionar e editar livros.
+- `src/components/BookItem.js`: componente que exibe cada livro na lista.
+- `src/storage/database.js`: camada responsavel pela criacao da tabela e operacoes com SQLite.
 
-### src/components
-Contém componentes reutilizáveis da aplicação.
+## Persistencia com SQLite
 
-- `BookItem.js`: Responsável por exibir as informações de um livro na lista.
+Os dados dos livros sao salvos localmente no banco `AppBooks.db`, usando `expo-sqlite`.
 
-### src/screens
-Contém as telas principais da aplicação.
+A tabela principal se chama `livros` e armazena:
 
-- `HomeScreen.js`: Tela inicial com listagem de livros
-- `DetailsScreen.js`: Tela de detalhes do livro
-- `FormScreen.js`: Tela para cadastro ou edição de livros
+- `id`: identificador unico do livro
+- `titulo`: titulo do livro
+- `autor`: autor do livro
+- `ano`: ano da publicacao
+- `disponivel`: disponibilidade do livro
+- `capa`: URL da imagem da capa
 
-### src/storage
-Responsável pela manipulação de dados (armazenamento local ou futura integração com banco de dados).
+Quando o banco esta vazio, o app cria uma lista inicial de livros para demonstracao.
 
----
+## Observacoes
 
-Outros arquivos importantes:
+A pasta `app/` existe no projeto por causa do template do Expo, mas a entrada principal atual esta configurada em `package.json` como `index.js`. Portanto, o fluxo usado pelo app e:
 
-- `App.js`: Arquivo principal da aplicação
-- `package.json`: Gerenciamento de dependências
+```text
+index.js -> App.js -> src/screens
+```
 
-## 📖 Funcionalidade: Listagem de Livros
+## Status
 
-A funcionalidade de listagem de livros é responsável por exibir os itens cadastrados na aplicação, permitindo ao usuário visualizar informações básicas como título, autor e disponibilidade.
-
-### Estrutura dos Dados
-
-Os livros são armazenados em um estado local utilizando o hook `useState`, contendo um array de objetos com as seguintes propriedades:
-
-- `id`: Identificador único do livro
-- `titulo`: Nome do livro
-- `autor`: Autor da obra
-- `disponivel`: Indica se o livro está disponível para empréstimo
-
-Exemplo de estrutura:
-
-```javascript
-{
-  id: "1",
-  titulo: "O Senhor dos Anéis",
-  autor: "J.R.R. Tolkien",
-  disponivel: true
-}
-
-
-# appBooks
+Projeto em desenvolvimento academico, com foco em aprendizado e pratica de conceitos de React Native, Expo e SQLite.

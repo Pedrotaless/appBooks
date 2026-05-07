@@ -14,6 +14,9 @@ function App() {
                 <Stack.Screen
                     name="Home"
                     component={HomeScreen}
+                    options={{
+                        headerTitleAlign: "center",
+                    }}
                 />
                 <Stack.Screen
                     name="Details"
