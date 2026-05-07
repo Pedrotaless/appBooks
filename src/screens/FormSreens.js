@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { TextInput, Text, Switch, ImageBackground, TouchableOpacity } from "react-native";
+import { useEffect, useState } from "react";
+import { ImageBackground, Switch, Text, TextInput, TouchableOpacity } from "react-native";
 
 function FormScreen({ navigation, route }) {
   const livro = route.params?.livro;
