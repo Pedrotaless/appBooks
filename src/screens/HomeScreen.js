@@ -1,33 +1,53 @@
 import BookItem from '../components/BookItem';
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Text, View, TouchableOpacity, FlatList, ImageBackground } from 'react-native';
-import { atualizarLivro, excluirLivro, iniciarBanco, inserirLivro, listarLivros } from '../storage/database';
 
 function HomeScreen({ navigation }) {
-  const [livros, setLivros] = useState([]);
+  const [livros, setLivros] = useState([
+    {
+      id: "1",
+      titulo: "Entendendo Algoritmos",
+      autor: "Aditya Y. Bhargava",
+      ano: "2017",
+      disponivel: true,
+      capa: "https://m.media-amazon.com/images/I/71Vkg7GfPFL._SY342_.jpg",
+    },
+    {
+      id: "2",
+      titulo: "Codigo Limpo: Habilidades Praticas do Agile Software",
+      autor: "Robert C. Martin",
+      ano: "2009",
+      disponivel: false,
+      capa: "https://m.media-amazon.com/images/I/71dH97FwGbL._SY342_.jpg",
+    },
+    {
+      id: "3",
+      titulo: "JavaScript: O Guia Definitivo",
+      autor: "David Flanagan",
+      ano: "2012",
+      disponivel: true,
+      capa: "https://m.media-amazon.com/images/I/816vDdUauOL._SY342_.jpg",
+    },
+  ]);
 
-  useEffect(() => {
-    async function carregarLivros() {
-      await iniciarBanco();
-      const livrosSalvos = await listarLivros();
-      setLivros(livrosSalvos);
-    }
+  const proximoId = useRef(4);
 
-    carregarLivros();
-  }, []);
+  function adicionarLivro(novoLivro) {
+    const livroComId = {
+      ...novoLivro,
+      id: String(proximoId.current),
+    };
 
-  async function adicionarLivro(novoLivro) {
-    const livroSalvo = await inserirLivro(novoLivro);
-    setLivros((prev) => [...prev, livroSalvo]);
+    proximoId.current += 1;
+
+    setLivros((prev) => [...prev, livroComId]);
   }
 
-  async function removerLivro(id) {
-    await excluirLivro(id);
+  function removerLivro(id) {
     setLivros((prev) => prev.filter((livro) => livro.id !== id));
   }
 
-  async function editarLivro(livroAtualizado) {
-    await atualizarLivro(livroAtualizado);
+  function editarLivro(livroAtualizado) {
     setLivros((prev) =>
       prev.map((livro) =>
         livro.id === livroAtualizado.id ? livroAtualizado : livro
