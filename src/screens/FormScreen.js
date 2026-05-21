@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { TextInput, Text, Switch, ImageBackground, TouchableOpacity } from "react-native";
+import { colors } from "../constants/colors";
+import {
+  TextInput,
+  Text,
+  Switch,
+  ImageBackground,
+  TouchableOpacity
+} from "react-native";
 
 function FormScreen({ navigation, route }) {
   const livro = route.params?.livro;
   const adicionarLivro = route.params?.adicionarLivro;
   const editarLivro = route.params?.editarLivro;
   const atualizarLivrosDetalhes = route.params?.atualizarLivrosDetalhes;
+
+  
   const [titulo, setTitulo] = useState(livro ? livro.titulo : "");
   const [autor, setAutor] = useState(livro ? livro.autor : "");
   const [ano, setAno] = useState(livro ? livro.ano : "");
@@ -52,53 +61,69 @@ function FormScreen({ navigation, route }) {
         padding: 20,
       }}
       resizeMode="cover"
+      accessible={false}
+      importantForAccessibility="no"
     >
-      <Text style={{ color: "#fff" }}>Capa (URL)</Text>
+      <Text style={{ color: colors.white }}>Capa (URL)</Text>
       <TextInput
-        style={{ color: "#fff" }}
+        style={{ color: colors.white }}
         value={capa}
         onChangeText={setCapa}
+        accessibilityLabel="URL da capa do livro"
+        accessibilityHint="Digite a URL da imagem da capa do livro"
       />
 
-      <Text style={{ color: "#fff" }}>Titulo</Text>
+      <Text style={{ color: colors.white }}>Titulo</Text>
       <TextInput
-        style={{ color: "#fff" }}
+        style={{ color: colors.white }}
         value={titulo}
         onChangeText={setTitulo}
+        accessibilityLabel="Titulo do livro"
+        accessibilityHint="Digite o titulo do livro"
       />
 
-      <Text style={{ color: "#fff" }}>Autor</Text>
+      <Text style={{ color: colors.white }}>Autor</Text>
       <TextInput
-        style={{ color: "#fff" }}
+        style={{ color: colors.white }}
         value={autor}
         onChangeText={setAutor}
+        accessibilityLabel="Autor do livro"
+        accessibilityHint="Digite o nome do autor do livro"
       />
 
-      <Text style={{ color: "#fff" }}>Ano</Text>
+      <Text style={{ color: colors.white }}>Ano</Text>
       <TextInput
-        style={{ color: "#fff" }}
+        style={{ color: colors.white }}
         value={ano}
         onChangeText={setAno}
+        accessibilityLabel="Ano de publicação do livro"
+        accessibilityHint="Digite o ano de publicação"
+        keyboardType="numeric"
       />
 
-      <Text style={{ color: "#fff" }}>Disponivel</Text>
+      <Text style={{ color: colors.white }}>Disponivel</Text>
       <Switch
         value={disponivel}
         onValueChange={setDisponivel}
+        accessibilityLabel="Disponibilidade do livro"
+        accessibilityHint="Ative para marcar o livro como disponível, desative para marcar como indisponível"
       />
 
       <TouchableOpacity
         style={{
-          backgroundColor: "#301c41",
+          backgroundColor: colors.primary,
           padding: 12,
           borderRadius: 6,
           marginTop: 10,
         }}
+        accessibilityRole="button"
+        accessibilityLabel="Salvar livro"
+        accessibilityHint="Pressione para salvar as informações do livro"
         onPress={salvarLivro}
       >
         <Text
           style={{
-            color: "#fff",
+            color: colors.white,
             textAlign: "center",
             fontWeight: "bold",
           }}
