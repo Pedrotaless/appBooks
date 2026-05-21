@@ -1,5 +1,17 @@
 import { useState } from "react";
-import { Text, Image, ImageBackground, TouchableOpacity } from "react-native";
+import { colors } from "../constants/colors";
+import {
+    Text,
+    Image,
+    ImageBackground,
+    TouchableOpacity,
+} from "react-native";
+import {
+    bookAvailabilityText,
+    bookCoverAcessibilityLabel,
+    bookEditAcessibilityLabel,
+    bookRemoveAcessibilityLabel,
+} from "../utils/accessibility";
 
 function DetailsScreen({ route, navigation }) {
     const [livro, setLivro] = useState(route.params);
@@ -16,6 +28,8 @@ function DetailsScreen({ route, navigation }) {
                 padding: 20,
             }}
             resizeMode="cover"
+            accessible={false}
+            importantForAccessibility="no"
         >
             {capa && (
                 <Image
@@ -27,36 +41,41 @@ function DetailsScreen({ route, navigation }) {
                         marginBottom: 15,
                         borderRadius: 8,
                     }}
+                    accessibilityLabel={bookCoverAcessibilityLabel(titulo)}
                 />
             )}
 
-            <Text style={{ color: "#fff" }}>{id}</Text>
-            <Text style={{ color: "#fff" }}>{titulo}</Text>
-            <Text style={{ color: "#fff" }}>{autor}</Text>
-            <Text style={{ color: "#fff" }}>{ano}</Text>
-            <Text style={{ color: "#fff" }}>{disponivel ? "Disponivel" : "Indisponivel"}</Text>
+            <Text style={{ color: colors.white }}>{id}</Text>
+            <Text style={{ color: colors.white }}>{titulo}</Text>
+            <Text style={{ color: colors.white }}>{autor}</Text>
+            <Text style={{ color: colors.white }}>{ano}</Text>
+            <Text style={{ color: colors.white }}>{bookAvailabilityText(disponivel)}</Text>
 
             <TouchableOpacity
                 style={{
-                    backgroundColor: "#301c41",
+                    backgroundColor: colors.primary,
                     padding: 12,
                     borderRadius: 6,
                     marginTop: 15,
                 }}
-                onPress={() => navigation.navigate("Form", {
-                    livro: livro,
-                    editarLivro,
-                    atualizarLivrosDetalhes: (livroAtualizado) => {
-                        setLivro((livroAnterior) => ({
-                            ...livroAnterior,
-                            ...livroAtualizado,
-                        }));
-                    },
-                })}
+                accessibilityRole="Button"
+                accessibilityLabel={bookEditAcessibilityLabel(titulo)}
+                accessibilityHint="Abre o formulario para editar os dados do livro"
+                onPress={() =>
+                    navigation.navigate("Form", {
+                        livro: livro,
+                        editarLivro,
+                        atualizarLivrosDetalhes: (livroAtualizado) => {
+                            setLivro((livroAnterior) => ({
+                                ...livroAnterior,
+                                ...livroAtualizado,
+                            }));
+                        },
+                    })}
             >
                 <Text
                     style={{
-                        color: "#fff",
+                        color: colors.white,
                         textAlign: "center",
                         fontWeight: "bold",
                     }}
@@ -67,11 +86,14 @@ function DetailsScreen({ route, navigation }) {
 
             <TouchableOpacity
                 style={{
-                    backgroundColor: "#301c41",
+                    backgroundColor: colors.primary,
                     padding: 12,
                     borderRadius: 6,
                     marginTop: 10,
                 }}
+                accessibilityRole="button"
+                accessibilityLabel={bookRemoveAcessibilityLabel(titulo)}
+                accessibilityHint="Remove este livro da lista"
                 onPress={async () => {
                     await removerLivro(id);
                     navigation.goBack();
@@ -79,7 +101,7 @@ function DetailsScreen({ route, navigation }) {
             >
                 <Text
                     style={{
-                        color: "#fff",
+                        color: colors.white,
                         textAlign: "center",
                         fontWeight: "bold",
                     }}
