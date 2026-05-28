@@ -5,7 +5,8 @@ import {
   Text,
   Switch,
   ImageBackground,
-  TouchableOpacity
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 function FormScreen({ navigation, route }) {
@@ -14,7 +15,7 @@ function FormScreen({ navigation, route }) {
   const editarLivro = route.params?.editarLivro;
   const atualizarLivrosDetalhes = route.params?.atualizarLivrosDetalhes;
 
-  
+
   const [titulo, setTitulo] = useState(livro ? livro.titulo : "");
   const [autor, setAutor] = useState(livro ? livro.autor : "");
   const [ano, setAno] = useState(livro ? livro.ano : "");
@@ -63,10 +64,25 @@ function FormScreen({ navigation, route }) {
       resizeMode="cover"
       accessible={false}
       importantForAccessibility="no"
-    >
+     >
+      <View
+      style={{
+        backgroundColor: colors.overlay,
+        padding: 16,
+        borderRadius: 8,
+      }}
+     >
       <Text style={{ color: colors.white }}>Capa (URL)</Text>
       <TextInput
-        style={{ color: colors.white }}
+          style={{
+        color: colors.darkText,
+        backgroundColor: colors.inputBackground,
+        paddingHorizontal: 12,
+        paddingVertical: 10,
+        borderRadius: 6,
+        marginTop: 6,
+        marginBottom: 12,
+      }}
         value={capa}
         onChangeText={setCapa}
         accessibilityLabel="URL da capa do livro"
@@ -75,7 +91,15 @@ function FormScreen({ navigation, route }) {
 
       <Text style={{ color: colors.white }}>Titulo</Text>
       <TextInput
-        style={{ color: colors.white }}
+        style={{
+        color: colors.darkText,
+        backgroundColor: colors.inputBackground,
+        paddingHorizontal: 12,
+        paddingVertical: 10,
+        borderRadius: 6,
+        marginTop: 6,
+        marginBottom: 12,
+      }}
         value={titulo}
         onChangeText={setTitulo}
         accessibilityLabel="Titulo do livro"
@@ -84,7 +108,15 @@ function FormScreen({ navigation, route }) {
 
       <Text style={{ color: colors.white }}>Autor</Text>
       <TextInput
-        style={{ color: colors.white }}
+          style={{
+        color: colors.darkText,
+        backgroundColor: colors.inputBackground,
+        paddingHorizontal: 12,
+        paddingVertical: 10,
+        borderRadius: 6,
+        marginTop: 6,
+        marginBottom: 12,
+      }}
         value={autor}
         onChangeText={setAutor}
         accessibilityLabel="Autor do livro"
@@ -93,7 +125,15 @@ function FormScreen({ navigation, route }) {
 
       <Text style={{ color: colors.white }}>Ano</Text>
       <TextInput
-        style={{ color: colors.white }}
+          style={{
+        color: colors.darkText,
+        backgroundColor: colors.inputBackground,
+        paddingHorizontal: 12,
+        paddingVertical: 10,
+        borderRadius: 6,
+        marginTop: 6,
+        marginBottom: 12,
+      }}
         value={ano}
         onChangeText={setAno}
         accessibilityLabel="Ano de publicação do livro"
@@ -131,7 +171,8 @@ function FormScreen({ navigation, route }) {
           Salvar
         </Text>
       </TouchableOpacity>
-    </ImageBackground>
+    </View>
+    </ImageBackground >
   );
 }
 
