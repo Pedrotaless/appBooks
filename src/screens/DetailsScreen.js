@@ -1,116 +1,78 @@
+// Importa o hook useState do React.
+// O useState é usado para criar e controlar estados dentro do componente.
 import { useState } from "react";
-import { colors } from "../constants/colors";
-import {
-    Text,
-    Image,
-    ImageBackground,
-    TouchableOpacity,
-} from "react-native";
-import {
-    bookAvailabilityText,
-    bookCoverAccessibilityLabel,
-    bookEditAccessibilityLabel,
-    bookRemoveAccessibilityLabel,
-} from "../utils/accessibility";
+import { Text, View, Image, Button } from "react-native";
+
 
 function DetailsScreen({ route, navigation }) {
-    const [livro, setLivro] = useState(route.params);
+  // Cria um estado chamado "livro".
+  // route.params contém os dados enviados da tela anterior.
+  // setLivro será usado para atualizar o estado do livro.
+  const [livro, setLivro] = useState(route.params);
 
-    const { id, capa, titulo, autor, ano, disponivel, editarLivro, removerLivro } = livro;
+  // Desestruturação do objeto livro.
+  // Aqui estamos pegando os valores do objeto e criando variáveis separadas.
+  const {
+    id,
+    capa,
+    titulo,
+    autor,
+    ano,
+    disponivel,
+    editarLivro,
+    removerLivro,
+  } = livro;
 
-    return (
-        <ImageBackground
-            source={{
-                uri: "https://images.pexels.com/photos/2553425/pexels-photo-2553425.jpeg",
-            }}
-            style={{
-                flex: 1,
-                padding: 20,
-            }}
-            resizeMode="cover"
-            accessible={false}
-            importantForAccessibility="no"
-        >
-            {capa && (
-                <Image
-                    source={{ uri: capa }}
-                    style={{
-                        width: 180,
-                        height: 260,
-                        alignSelf: "center",
-                        marginBottom: 15,
-                        borderRadius: 8,
-                    }}
-                    accessibilityLabel={bookCoverAccessibilityLabel(titulo)}
-                />
-            )}
 
-            <Text style={{ color: colors.white }}>{id}</Text>
-            <Text style={{ color: colors.white }}>{titulo}</Text>
-            <Text style={{ color: colors.white }}>{autor}</Text>
-            <Text style={{ color: colors.white }}>{ano}</Text>
-            <Text style={{ color: colors.white }}>{bookAvailabilityText(disponivel)}</Text>
+return (
+    <View>
 
-            <TouchableOpacity
+        {capa && (
+            <Image
+                source={{ uri: capa }}
                 style={{
-                    backgroundColor: colors.primary,
-                    padding: 12,
-                    borderRadius: 6,
-                    marginTop: 15,
+                    width: 180,
+                    height: 260,
+                    alignSelf: "center",
+                    marginBottom: 15,
+                    borderRadius: 8
                 }}
-                accessibilityRole="Button"
-                accessibilityLabel={bookEditAccessibilityLabel(titulo)}
-                accessibilityHint="Abre o formulario para editar os dados do livro"
-                onPress={() =>
-                    navigation.navigate("Form", {
-                        livro: livro,
-                        editarLivro,
-                        atualizarLivrosDetalhes: (livroAtualizado) => {
-                            setLivro((livroAnterior) => ({
-                                ...livroAnterior,
-                                ...livroAtualizado,
-                            }));
-                        },
-                    })}
-            >
-                <Text
-                    style={{
-                        color: colors.white,
-                        textAlign: "center",
-                        fontWeight: "bold",
-                    }}
-                >
-                    Editar
-                </Text>
-            </TouchableOpacity>
+            />
+        )}
 
-            <TouchableOpacity
-                style={{
-                    backgroundColor: colors.primary,
-                    padding: 12,
-                    borderRadius: 6,
-                    marginTop: 10,
-                }}
-                accessibilityRole="button"
-                accessibilityLabel={bookRemoveAccessibilityLabel(titulo)}
-                accessibilityHint="Remove este livro da lista"
-                onPress={async () => {
-                    await removerLivro(id);
-                    navigation.goBack();
-                }}
-            >
-                <Text
-                    style={{
-                        color: colors.white,
-                        textAlign: "center",
-                        fontWeight: "bold",
-                    }}
-                >
-                    Remover
-                </Text>
-            </TouchableOpacity>
-        </ImageBackground>
-    );
+        <Text>{id}</Text>
+        <Text>{titulo}</Text>
+        <Text>{autor}</Text>
+        <Text>{ano}</Text>
+        <Text>{disponivel ? "Disponível" : "Indisponível"}</Text>
+
+        <Button
+            title="Editar"
+            onPress={() => navigation.navigate("Form", {
+                livro: livro,
+                editarLivro,
+                atualizarLivrosDetalhes: (livroAtualizado) => {
+                    setLivro((livroAnterior) => ({
+                        ...livroAnterior,
+                        ...livroAtualizado
+                    }));
+            }
+            })}
+
+        />
+
+        <Button
+            title="Remover"
+            onPress={() => {
+                removerLivro(id);
+                navigation.goBack();
+            }}
+        />
+
+    </View>
+
+ );
 }
+
 
 export default DetailsScreen;
