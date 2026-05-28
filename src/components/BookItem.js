@@ -6,8 +6,7 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import {
-  bookCoverAccessibilityLabel, bookDetailAccessibilityLabel,
+import { bookCoverAccessibilityLabel, bookDetailAccessibilityLabel,
 } from '../utils/accessibility';
 
 function BookItem({ livro, onPress }) {
@@ -44,7 +43,7 @@ function BookItem({ livro, onPress }) {
           }}
           accessibilityRole="button"
           accessibilityLabel={bookDetailAccessibilityLabel(livro.titulo)}
-          accessibilityActions="Abre a tela de detalhes do livro"
+          accessibilityHint="Abre a tela de detalhes do livro"
           onPress={onPress}
         >
           <Text

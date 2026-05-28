@@ -8,9 +8,9 @@ import {
 } from "react-native";
 import {
     bookAvailabilityText,
-    bookCoverAcessibilityLabel,
-    bookEditAcessibilityLabel,
-    bookRemoveAcessibilityLabel,
+    bookCoverAccessibilityLabel,
+    bookEditAccessibilityLabel,
+    bookRemoveAccessibilityLabel,
 } from "../utils/accessibility";
 
 function DetailsScreen({ route, navigation }) {
@@ -41,7 +41,7 @@ function DetailsScreen({ route, navigation }) {
                         marginBottom: 15,
                         borderRadius: 8,
                     }}
-                    accessibilityLabel={bookCoverAcessibilityLabel(titulo)}
+                    accessibilityLabel={bookCoverAccessibilityLabel(titulo)}
                 />
             )}
 
@@ -59,7 +59,7 @@ function DetailsScreen({ route, navigation }) {
                     marginTop: 15,
                 }}
                 accessibilityRole="Button"
-                accessibilityLabel={bookEditAcessibilityLabel(titulo)}
+                accessibilityLabel={bookEditAccessibilityLabel(titulo)}
                 accessibilityHint="Abre o formulario para editar os dados do livro"
                 onPress={() =>
                     navigation.navigate("Form", {
@@ -92,7 +92,7 @@ function DetailsScreen({ route, navigation }) {
                     marginTop: 10,
                 }}
                 accessibilityRole="button"
-                accessibilityLabel={bookRemoveAcessibilityLabel(titulo)}
+                accessibilityLabel={bookRemoveAccessibilityLabel(titulo)}
                 accessibilityHint="Remove este livro da lista"
                 onPress={async () => {
                     await removerLivro(id);
