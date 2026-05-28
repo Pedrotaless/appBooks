@@ -1,30 +1,56 @@
-import { useRef, useState } from "react";
-import { getInitialBooks } from "../repositories/bookRepository";
-import { createNewBook, removeBookFromList, updateBookList } from "../services/bookService";
+import { useState, useEffect } from "react";
+import {
+    createBook as createBookRepository,
+    deleteBook,
+    getBooks,
+    updateBook,
+} from "../repositories/bookRepository";
 
 export function useBooks() {
-    const [livros, setLivros] = useState(getInitialBooks());
-    const proximoId = useRef(4);
+    const [livros, setLivros] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    function adicionarLivro(novoLivro) {
-        const livroComId = createNewBook(novoLivro, proximoId.current);
+    useEffect(() => {
+        async function loadBooks() {
+            try {
+                const books = await getBooks();
+                setLivros(books);
+            } catch (error) {
+                console.error("Erro ao carregar livros:", error);
+            } finally {
+                setLoading(false);
+            }
+        }
+        loadBooks();
+    }, []); 
 
-        proximoId.current += 1;
 
-        setLivros((prev) => [...prev, livroComId]);
+    async function adicionarLivro(novoLivro) {
+        const livroCriado = await createBookRepository(novoLivro);
+
+        setLivros((prev) => [...prev, livroCriado]);
     }
 
-    function removerLivro(id) {
-        setLivros((prev) => removeBookFromList(prev, id));
+    async function removerLivro(id) {
+        await deleteBook(id);
+
+        setLivros((prev) => prev.filter((livro) => livro.id !== id));
 
     }
 
-    function editarLivro(livroAtualizado) {
-        setLivros((prev) => updateBookList(prev, livroAtualizado));
+    async function editarLivro(livroAtualizado) {
+        await updateBook(livroAtualizado);
+
+        setLivros((prev) =>
+         prev.map((livro) =>
+            livro.id === livroAtualizado.id ? livroAtualizado : livro
+        )
+     );
     }
 
     return {
         livros,
+        loading,
         adicionarLivro,
         removerLivro,
         editarLivro
