@@ -1,105 +1,261 @@
-# Sistema de Gerenciamento de Biblioteca
+# appBooks
+
+Aplicativo mobile para gerenciamento simples de livros, desenvolvido com React Native e Expo. O projeto permite cadastrar, listar, visualizar detalhes, editar e remover livros, com persistencia local usando SQLite.
 
 ## Sobre o Projeto
 
-Este projeto consiste no desenvolvimento de um aplicativo mobile para gerenciamento de biblioteca, criado com o objetivo de aplicar conceitos básicos de desenvolvimento mobile utilizando o framework Expo.
+O appBooks foi desenvolvido com fins academicos para praticar conceitos de desenvolvimento mobile, navegacao entre telas, componentes reutilizaveis, hooks, organizacao por camadas, acessibilidade e armazenamento local.
 
-A aplicação permite gerenciar livros, incluindo visualização, cadastro e controle de disponibilidade, simulando um sistema simples de biblioteca.
+A aplicacao simula um pequeno sistema de biblioteca. Cada livro possui titulo, autor, ano de publicacao, URL da capa e informacao de disponibilidade.
 
-Este documento tem como finalidade apresentar a estrutura, funcionamento e instruções de execução do projeto.
+## Funcionalidades
 
-## Observações
-
-Este projeto foi desenvolvido para fins acadêmicos, com foco no aprendizado de conceitos iniciais de desenvolvimento mobile, estruturação de aplicações e organização de código.
-
----
+- Listagem de livros cadastrados
+- Cadastro de novos livros
+- Visualizacao dos detalhes de um livro
+- Edicao de livros existentes
+- Remocao de livros
+- Controle de disponibilidade
+- Persistencia local com SQLite
+- Melhorias de acessibilidade em botoes, imagens e campos de formulario
+- Contraste visual na tela de cadastro e edicao
 
 ## Tecnologias Utilizadas
 
 - React Native
 - Expo
 - JavaScript
+- React Navigation
+- Expo SQLite
 - Node.js
 
----
+## Como Executar
 
-## 1. Criação do Projeto
+Antes de iniciar, tenha o Node.js instalado na maquina.
 
-O projeto foi desenvolvido utilizando o framework Expo, que facilita a criação de aplicações mobile com React Native, permitindo execução rápida em dispositivos físicos e emuladores.
-
-Para iniciar o projeto, foi utilizado os seguinte comandos:
+1. Instale as dependencias:
 
 ```bash
-npx create-expo-app appBooks
+npm install
+```
 
-Direcionando diretório:
+2. Inicie o projeto:
 
-```bash cd appBooks 
+```bash
+npm start
+```
 
-//Este comando abre o ambiente de desenvolvimento, permitindo executar o aplicativo em emuladores ou no dispositivo físico através do aplicativo Expo Go.
+ou:
 
-Instalação das dependências:
+```bash
+npx expo start
+```
 
-```bash npm install
+3. Abra o app em um emulador Android/iOS ou em um dispositivo fisico usando o Expo Go.
 
-## Como Executar o Projeto
+## Scripts Disponiveis
 
-Siga os passos abaixo para executar a aplicação localmente:
+```bash
+npm start
+```
 
-```npx expo start
+Inicia o servidor de desenvolvimento do Expo.
+
+```bash
+npm run android
+```
+
+Inicia o projeto no Android.
+
+```bash
+npm run ios
+```
+
+Inicia o projeto no iOS.
+
+```bash
+npm run web
+```
+
+Inicia o projeto no navegador.
+
+```bash
+npm run lint
+```
+
+Executa a verificacao de lint do projeto.
 
 ## Estrutura do Projeto
 
-O projeto está organizado de forma modular, separando componentes, telas e funcionalidades específicas para facilitar a manutenção e escalabilidade.
+```text
+appBooks/
+|-- App.js
+|-- index.js
+|-- package.json
+|-- app/
+|-- assets/
+`-- src/
+    |-- components/
+    |   `-- BookItem.js
+    |-- constants/
+    |   `-- colors.js
+    |-- database/
+    |   `-- database.js
+    |-- hooks/
+    |   `-- useBooks.js
+    |-- models/
+    |   `-- bookModel.js
+    |-- navigation/
+    |   `-- AppNavigator.js
+    |-- repositories/
+    |   `-- bookRepository.js
+    |-- screens/
+    |   |-- HomeScreen.js
+    |   |-- DetailsScreen.js
+    |   `-- FormScreen.js
+    |-- services/
+    |   `-- bookService.js
+    `-- utils/
+        `-- accessibility.js
+```
 
-### Nesta pasta se encontra os principais componentes da aplicação:
+## Principais Arquivos
 
-- `/app`
+- `index.js`: registra o componente principal do app no Expo.
+- `App.js`: inicializa o banco SQLite e exibe a navegacao quando o banco esta pronto.
+- `src/navigation/AppNavigator.js`: configura as rotas `Home`, `Details` e `Form`.
+- `src/screens/HomeScreen.js`: tela inicial com a listagem dos livros e botao de cadastro.
+- `src/screens/DetailsScreen.js`: tela de detalhes, edicao e remocao do livro selecionado.
+- `src/screens/FormScreen.js`: tela usada para cadastrar e editar livros.
+- `src/components/BookItem.js`: componente reutilizavel que exibe um livro na lista.
+- `src/hooks/useBooks.js`: hook responsavel por carregar, adicionar, editar e remover livros no estado da aplicacao.
+- `src/repositories/bookRepository.js`: camada que executa as operacoes de leitura e escrita no SQLite.
+- `src/database/database.js`: abre a conexao com SQLite e cria a tabela inicial.
+- `src/constants/colors.js`: centraliza as cores usadas no app.
+- `src/utils/accessibility.js`: centraliza textos auxiliares para acessibilidade.
+- `src/models/bookModel.js`: define o formato padrao de um objeto livro.
+- `src/services/bookService.js`: camada reservada para normalizacao e validacao dos dados dos livros.
 
-### src/components
-Contém componentes reutilizáveis da aplicação.
+## Fluxo da Aplicacao
 
-- `BookItem.js`: Responsável por exibir as informações de um livro na lista.
+```text
+index.js
+-> App.js
+-> AppNavigator.js
+-> HomeScreen.js
+-> useBooks.js
+-> bookRepository.js
+-> database.js
+-> SQLite
+```
 
-### src/screens
-Contém as telas principais da aplicação.
+O `App.js` chama `initDatabase()` ao iniciar. Essa funcao abre o banco local e cria a tabela `books`, caso ela ainda nao exista.
 
-- `HomeScreen.js`: Tela inicial com listagem de livros
-- `DetailsScreen.js`: Tela de detalhes do livro
-- `FormScreen.js`: Tela para cadastro ou edição de livros
+Depois que o banco esta pronto, o app renderiza o `AppNavigator`, que controla as telas principais.
 
-### src/storage
-Responsável pela manipulação de dados (armazenamento local ou futura integração com banco de dados).
+## Persistencia com SQLite
 
----
+Os dados dos livros sao salvos localmente no banco:
 
-Outros arquivos importantes:
+```text
+appbooks.db
+```
 
-- `App.js`: Arquivo principal da aplicação
-- `package.json`: Gerenciamento de dependências
+A tabela principal se chama:
 
-## 📖 Funcionalidade: Listagem de Livros
+```text
+books
+```
 
-A funcionalidade de listagem de livros é responsável por exibir os itens cadastrados na aplicação, permitindo ao usuário visualizar informações básicas como título, autor e disponibilidade.
+Ela armazena:
 
-### Estrutura dos Dados
+- `id`: identificador unico do livro
+- `titulo`: titulo do livro
+- `autor`: autor do livro
+- `ano`: ano de publicacao
+- `capa`: URL da imagem da capa
+- `disponivel`: disponibilidade do livro
 
-Os livros são armazenados em um estado local utilizando o hook `useState`, contendo um array de objetos com as seguintes propriedades:
+No SQLite, a disponibilidade e salva como numero:
 
-- `id`: Identificador único do livro
-- `titulo`: Nome do livro
-- `autor`: Autor da obra
-- `disponivel`: Indica se o livro está disponível para empréstimo
+```text
+1 = disponivel
+0 = indisponivel
+```
 
-Exemplo de estrutura:
+Ao buscar os dados, o repository converte esse valor para booleano em JavaScript:
 
-```javascript
-{
-  id: "1",
-  titulo: "O Senhor dos Anéis",
-  autor: "J.R.R. Tolkien",
-  disponivel: true
-}
+```js
+disponivel: book.disponivel === 1
+```
 
+## Arquitetura
 
-# appBooks
+O projeto usa uma organizacao por camadas:
+
+- `screens`: telas completas acessadas pela navegacao.
+- `components`: partes visuais reutilizaveis.
+- `hooks`: logica de estado e integracao com repository.
+- `repositories`: acesso aos dados persistidos.
+- `database`: configuracao e conexao SQLite.
+- `services`: regras auxiliares, validacao e normalizacao.
+- `models`: formato padrao dos dados.
+- `utils`: funcoes auxiliares.
+- `constants`: valores fixos reutilizaveis.
+- `navigation`: configuracao de rotas.
+
+Essa separacao evita que as telas fiquem responsaveis por tudo. A tela exibe a interface, o hook controla o estado, o repository acessa o banco e o database configura o SQLite.
+
+## Acessibilidade
+
+O app possui propriedades de acessibilidade em pontos importantes:
+
+- `accessibilityLabel`: descreve imagens, campos e botoes.
+- `accessibilityHint`: explica o que acontece ao acionar um botao.
+- `accessibilityRole`: informa o papel do elemento, como `button`.
+- `accessible={false}` e `importantForAccessibility="no"`: usados em imagens de fundo decorativas.
+
+Exemplo:
+
+```js
+accessibilityRole="button"
+accessibilityLabel="Salvar livro"
+accessibilityHint="Pressione para salvar as informacoes do livro"
+```
+
+## Interface e Contraste
+
+A tela de cadastro e edicao usa uma imagem de fundo com uma camada escura semitransparente sobre o formulario. Isso melhora a leitura dos textos e campos.
+
+As cores principais ficam centralizadas em:
+
+```text
+src/constants/colors.js
+```
+
+Exemplo:
+
+```js
+colors.primary
+colors.white
+colors.overlay
+colors.inputBackground
+```
+
+## Observacoes
+
+A pasta `app/` existe por causa do template do Expo, mas a entrada principal configurada no `package.json` e:
+
+```text
+index.js
+```
+
+Portanto, o fluxo principal usado pelo app e:
+
+```text
+index.js -> App.js -> src/navigation/AppNavigator.js
+```
+
+## Status
+
+Projeto academico em desenvolvimento, com base preparada para evoluir com novas funcionalidades, como busca de livros, filtros, categorias, validacao visual de formulario e sincronizacao com API externa.
