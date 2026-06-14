@@ -1,7 +1,9 @@
 // Importa o hook useState do React.
 // O useState é usado para criar e controlar estados dentro do componente.
 import { useState } from "react";
-import { Text, View, Image, Button } from "react-native";
+import { Text, Image, Button, ImageBackground } from "react-native";
+
+import { colors } from "../constants/colors";
 
 
 function DetailsScreen({ route, navigation }) {
@@ -25,8 +27,18 @@ function DetailsScreen({ route, navigation }) {
 
 
 return (
-    <View>
-
+    <ImageBackground
+      source={{
+        uri: "https://images.pexels.com/photos/2553425/pexels-photo-2553425.jpeg",
+      }}
+      style={{
+        flex: 1,
+        padding: 20,
+      }}
+      resizeMode="cover"
+      accessible={false}
+      importantForAccessibility="no"
+    >
         {capa && (
             <Image
                 source={{ uri: capa }}
@@ -40,11 +52,11 @@ return (
             />
         )}
 
-        <Text>{id}</Text>
-        <Text>{titulo}</Text>
-        <Text>{autor}</Text>
-        <Text>{ano}</Text>
-        <Text>{disponivel ? "Disponível" : "Indisponível"}</Text>
+        <Text style={{ color: colors.white }}>{id}</Text>
+        <Text style={{ color: colors.white }}>{titulo}</Text>
+        <Text style={{ color: colors.white }}>{autor}</Text>
+        <Text style={{ color: colors.white }}>{ano}</Text>
+        <Text style={{ color: colors.white }}>{disponivel ? "Disponível" : "Indisponível"}</Text>
 
         <Button
             title="Editar"
@@ -69,7 +81,7 @@ return (
             }}
         />
 
-    </View>
+    </ImageBackground>
 
  );
 }

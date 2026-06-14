@@ -1,59 +1,62 @@
 import React from "react";
-import { Text, View, Button, Image, TouchableOpacity } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 
-function BookItem({ livro, onPress, onEdit, onDelete }) {
+import { colors } from "../constants/colors";
+import {
+  bookCoverAccessibilityLabel,
+  bookDetailAccessibilityLabel,
+} from "../utils/accessibility";
+
+function BookItem({ livro, onPress }) {
   return (
-    <View style={{
-      flexDirection: "row",
-      backgroundColor: "#ccc",
-      padding: 10,
-      marginBottom: 10,
-      marginTop: 10,
-      borderRadius: 10,
-      elevation: 15
-
-    }}>
-
+    <View
+      style={{
+        flexDirection: "row",
+        backgroundColor: colors.lightGray,
+        padding: 10,
+        marginBottom: 10,
+        marginTop: 10,
+        borderRadius: 10,
+        elevation: 15,
+      }}
+    >
       {livro.capa && (
         <Image
-          // Define a imagem usando URL.
           source={{ uri: livro.capa }}
           style={{ width: 70, height: 100, marginRight: 10 }}
+          accessibilityLabel={bookCoverAccessibilityLabel(livro.titulo)}
         />
       )}
 
-      {/* Container das informações */}
       <View>
-        <Text>{livro.titulo}</Text>
+        <Text style={{ color: colors.darkText }}>{livro.titulo}</Text>
 
-        {/* Botão personalizado */}
         <TouchableOpacity
-          // Estilos do botão
           style={{
-            backgroundColor: "#175980",
+            backgroundColor: colors.primary,
             padding: 8,
             borderRadius: 10,
             marginTop: 6,
-            width: 120
+            width: 120,
           }}
-
+          accessibilityRole="button"
+          accessibilityLabel={bookDetailAccessibilityLabel(livro.titulo)}
+          accessibilityHint="Abre a tela de detalhes do livro"
           onPress={onPress}
         >
-          {/* Texto do botão */}
           <Text
             style={{
-              color: "#ccc",
-              textAlign: "row",
-              fontweight: "bold"
-            }}>
+              color: colors.white,
+              textAlign: "center",
+              fontWeight: "bold",
+            }}
+          >
             Ver detalhes
           </Text>
         </TouchableOpacity>
       </View>
-
-    </View >
-  )
+    </View>
+  );
 }
 
-// Exporta o componente para ser usado em outros arquivos.
 export default BookItem;
