@@ -5,8 +5,8 @@ import AppNavigator from "./src/navigation/AppNavigator";
 import { initDatabase } from "./src/database/database";
 
 function App() {
-  const [databaseReady, setDatabaseReady] = React.useState(false);
-  const [databaseError, setDatabaseError] = React.useState(null);
+  const [databaseReady, setDatabaseReady] = useState(false);
+  const [databaseError, setDatabaseError] = useState(null);
 
   useEffect(() => {
     async function prepareDatabase() {
